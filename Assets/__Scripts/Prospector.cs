@@ -27,6 +27,8 @@ public class Prospector : MonoBehaviour {
 
     public float reloadDelay = 1f;
 
+    public Deck d;
+
     public Vector3 fsPosMid = new Vector3(0.5f, 0.90f, 0);
     public Vector3 fsPosRun = new Vector3(0.5f, 0.75f, 0);
     public Vector3 fsPosMid2 = new Vector3(0.5f, 0.5f, 0);
@@ -410,8 +412,11 @@ public class Prospector : MonoBehaviour {
                 }
             }
             cd.faceUp = fup; // Set the value on the card
+            
         }
     }
+
+    
     // Return true if the two cards are adjacent in rank (A & K wrap around)
     public bool AdjacentRank(CardProspector c0, CardProspector c1)
     {
