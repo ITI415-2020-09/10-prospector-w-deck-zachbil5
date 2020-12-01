@@ -18,8 +18,8 @@ public class Deck : MonoBehaviour {
 	public Sprite cardBackGold;
 	public Sprite cardFront;
 	public Sprite cardFrontGold;
-	
-	
+
+    public bool goldCard;
 	// Prefabs
 	public GameObject prefabSprite;
 	public GameObject prefabCard;
@@ -240,7 +240,9 @@ public class Deck : MonoBehaviour {
 
 			tGO = Instantiate(prefabSprite) as GameObject;
 			tSR = tGO.GetComponent<SpriteRenderer>();
-			tSR.sprite = cardBack;
+           
+		    tSR.sprite = cardBack;
+
 			tGO.transform.SetParent(card.transform);
 			tGO.transform.localPosition=Vector3.zero;
 			tSR.sortingOrder = 2;

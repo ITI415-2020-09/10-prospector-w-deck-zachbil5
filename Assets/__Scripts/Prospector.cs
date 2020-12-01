@@ -222,7 +222,13 @@ public class Prospector : MonoBehaviour {
                 MoveToTarget(cd); // Make it the target card
                 SetTableauFaces(); // Update tableau card face-ups
                 // Clicking a card in the tableau will check if it's a valid play
-                ScoreManager(ScoreEvent.mine);
+                float rand = Random.Range(0, 9);
+                if (rand > 1)
+                    ScoreManager(ScoreEvent.mine);
+                else
+                {
+                    ScoreManager(ScoreEvent.mineGold);
+                }
                 break;
         }
         CheckForGameOver();
@@ -302,12 +308,39 @@ public class Prospector : MonoBehaviour {
                     fsRun = null; // Clear fsRun so it's created again
                 }
                 break;
+            
             case ScoreEvent.mine: // Remove a mine card
                 chain++; // increase the score chain
                 scoreRun += chain; // add score for this card to run
+                
                 FloatingScore fs;
                 // Move it from the mousePosition to fsPosRun
                 Vector3 p0 = Input.mousePosition;
+                p0.x /= Screen.width;
+                p0.y /= Screen.height;
+                fsPts = new List<Vector3>();
+                fsPts.Add(p0);
+                fsPts.Add(fsPosMid);
+                fsPts.Add(fsPosRun);
+                fs = Scoreboard.S.CreateFloatingScore(chain, fsPts);
+                fs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
+                if (fsRun == null)
+                {
+                    fsRun = fs;
+                    fsRun.reportFinishTo = null;
+                }
+                else
+                {
+                    fs.reportFinishTo = fsRun.gameObject;
+                }
+                break;
+            case ScoreEvent.mineGold:
+                chain++; // increase the score chain
+                scoreRun += chain; // add score for this card to run
+                scoreRun *= 2;
+                
+                // Move it from the mousePosition to fsPosRun
+                p0 = Input.mousePosition;
                 p0.x /= Screen.width;
                 p0.y /= Screen.height;
                 fsPts = new List<Vector3>();
